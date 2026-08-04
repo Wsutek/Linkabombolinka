@@ -1,9 +1,9 @@
 # 💌 Interaktywna laurka
 
-Słodka, interaktywna laurka w czystym HTML/CSS/JS. Otwierasz dwuklikiem `index.html` — nie trzeba nic instalować.
+Słodka, interaktywna laurka w czystym HTML/CSS/JS. Otwierasz dwuklikiem `index.html`, nie trzeba nic instalować.
 
 ## Jak uruchomić
-Kliknij dwa razy w `index.html` — otworzy się w przeglądarce.
+Kliknij dwa razy w `index.html`, otworzy się w przeglądarce.
 
 ## Co zawiera
 1. **Ekran otwierania** – klikana koperta z animacją.
@@ -36,4 +36,4 @@ Wrzuć plik do `assets/music/piosenka.mp3` i dodaj w `index.html` przed `</body>
 ```html
 <audio src="assets/music/piosenka.mp3" autoplay loop></audio>
 ```
-> Uwaga: przeglądarki często blokują autoodtwarzanie — dźwięk zwykle ruszy dopiero po kliknięciu (np. po otwarciu koperty).
+> Uwaga: przeglądarki często blokują autoodtwarzanie, dźwięk zwykle ruszy dopiero po kliknięciu (np. po otwarciu koperty).
