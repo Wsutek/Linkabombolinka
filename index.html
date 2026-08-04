@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laurka dla Ciebie 💌</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Warstwa na konfetti / serduszka -->
+  <canvas id="fx-canvas"></canvas>
+
+  <!-- ========== 1. EKRAN OTWIERANIA ========== -->
+  <section id="screen-open" class="screen active">
+    <div class="floaty floaty-1">💖</div>
+    <div class="floaty floaty-2">✨</div>
+    <div class="floaty floaty-3">🎀</div>
+    <div class="floaty floaty-4">💕</div>
+
+    <div class="envelope-wrap">
+      <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Otwórz laurkę">
+        <div class="envelope-back"></div>
+        <div class="envelope-letter">💌</div>
+        <div class="envelope-front"></div>
+        <div class="envelope-flap"></div>
+      </div>
+      <h1 class="open-title">Karolinko, mam dla Ciebie niespodziankę!</h1>
+      <p class="open-sub">Kliknij kopertę, żeby otworzyć 👇</p>
+      <button class="btn-primary" id="btn-open">Otwórz 💝</button>
+    </div>
+  </section>
+
+  <!-- ========== TREŚĆ LAURKI ========== -->
+  <main id="card-content" class="hidden">
+
+    <!-- Pasek nawigacji między sekcjami -->
+    <nav class="dots-nav" aria-label="Nawigacja">
+      <a href="#sec-letter" class="dot" data-label="List">•</a>
+      <a href="#sec-gallery" class="dot" data-label="Galeria">•</a>
+      <a href="#sec-cards" class="dot" data-label="Za co Cię kocham">•</a>
+      <a href="#sec-final" class="dot" data-label="Finał">•</a>
+    </nav>
+
+    <!-- ========== 2. ANIMOWANY LIST ========== -->
+    <section id="sec-letter" class="section">
+      <div class="paper reveal">
+        <h2 class="section-title">Kilka słów od serca 💌</h2>
+        <div class="letter-text" id="letter-text">
+          <!-- Każda linijka pojawia się po kolei. PODMIEŃ TREŚĆ NA SWOJĄ. -->
+          <p>Hej misiaczku,</p>
+          <p>wiem, że nie lubisz takich czułości i prawdopodobnie jak to widzisz, to Cię skręca z cringu, ale spoko — zaraz Cię skręci jeszcze bardziej :p</p>
+          <p>Nie będę badboyem, nie będę udawał kogoś innego, ale będę dla Ciebie.</p>
+          <p>Dziękuję, że jesteś, Karolinko — Kocham Cię ❤️</p>
+        </div>
+        <div class="scroll-hint">⌄</div>
+      </div>
+    </section>
+
+    <!-- ========== 3. GALERIA ZDJĘĆ ========== -->
+    <section id="sec-gallery" class="section">
+      <h2 class="section-title reveal">Nasze wspomnienia 📸</h2>
+      <div class="gallery-scatter reveal">
+        <!-- Środkowe, wycentrowane zdjęcie -->
+        <figure class="photo photo-center" id="photo-center">
+          <img src="assets/img/smialismy-sie-do-lez.jpg" alt="Jak śmialiśmy się do łez (moich)" />
+          <div class="nsfw-cover">
+            <div class="nsfw-badge">🔞 18+ NSFW</div>
+            <p class="nsfw-warn">Uwaga: treść tylko dla odważnych 👀</p>
+            <button class="nsfw-btn" id="nsfw-btn">Zobacz 👁️</button>
+          </div>
+          <figcaption>Jak śmialiśmy się do łez (moich)</figcaption>
+        </figure>
+        <!-- Zdjęcia rozsypane dookoła -->
+        <figure class="photo photo-around p1"><img src="assets/img/pierwszy-raz.jpg" alt="Nasz pierwszy raz gdzieś tam" /><figcaption>Nasz pierwszy raz gdzieś tam</figcaption></figure>
+        <figure class="photo photo-around p2"><img src="assets/img/dzien-nigdy-nie-zapomne.jpg" alt="Dzień którego nigdy nie zapomnę" /><figcaption>Dzień którego nigdy nie zapomnę</figcaption></figure>
+        <figure class="photo photo-around p3"><img src="assets/img/nalezyte-traktowanie.jpg" alt="Należyte traktowanie" /><figcaption>Należyte traktowanie</figcaption></figure>
+        <figure class="photo photo-around p4"><img src="assets/img/wspolny-wyjazd.jpg" alt="Wspólny wyjazd" /><figcaption>Wspólny wyjazd</figcaption></figure>
+        <figure class="photo photo-around p5"><img src="assets/img/piknik.jpg" alt="Piknik" /><figcaption>Piknik</figcaption></figure>
+        <figure class="photo photo-around p6"><img src="assets/img/pieknijesza.jpg" alt="Gdy byłaś piękniejsza niż mógłbym sobie wyobrazić" /><figcaption>Gdy byłaś piękniejsza niż mógłbym sobie wyobrazić</figcaption></figure>
+        <figure class="photo photo-around p7"><img src="assets/img/ostatnia-randeczka.jpg" alt="Ostatnia Randeczka" /><figcaption>Ostatnia Randeczka</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- ========== 4. KARTECZKI "ZA CO CIĘ KOCHAM" ========== -->
+    <section id="sec-cards" class="section">
+      <h2 class="section-title reveal">Za co Cię kocham 💗</h2>
+      <p class="section-sub reveal">Kliknij karteczki i odkryj powód</p>
+      <div class="cards reveal" id="cards">
+        <!-- PODMIEŃ powody na swoje -->
+        <div class="flip-card" tabindex="0"><div class="flip-inner">
+          <div class="flip-front">💫</div>
+          <div class="flip-back">Za Twój uśmiech, który rozświetla mi dzień</div>
+        </div></div>
+        <div class="flip-card" tabindex="0"><div class="flip-inner">
+          <div class="flip-front">🥰</div>
+          <div class="flip-back">Za to, jak się o mnie troszczysz</div>
+        </div></div>
+        <div class="flip-card" tabindex="0"><div class="flip-inner">
+          <div class="flip-front">😄</div>
+          <div class="flip-back">Za nasze głupie żarty i śmiech</div>
+        </div></div>
+        <div class="flip-card" tabindex="0"><div class="flip-inner">
+          <div class="flip-front">🤗</div>
+          <div class="flip-back">Za to, że przy Tobie mogę być sobą</div>
+        </div></div>
+        <div class="flip-card" tabindex="0"><div class="flip-inner">
+          <div class="flip-front">🌟</div>
+          <div class="flip-back">Za Twoje wielkie serce (cyce)</div>
+        </div></div>
+        <div class="flip-card" tabindex="0"><div class="flip-inner">
+          <div class="flip-front">💞</div>
+          <div class="flip-back">Za to, że po prostu jesteś Ty</div>
+        </div></div>
+        <div class="flip-card" tabindex="0"><div class="flip-inner">
+          <div class="flip-front">😈</div>
+          <div class="flip-back">Za to, że mimo próby bycia badbycz i tak w środku jesteś najsłodszą i najtroskliwszą osobą</div>
+        </div></div>
+        <div class="flip-card" tabindex="0"><div class="flip-inner">
+          <div class="flip-front">😅</div>
+          <div class="flip-back">Za to, że mimo że Cię wkurwiam, to i tak dalej ze mną wytrzymujesz</div>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- ========== 5. FINAŁ + UCIEKAJĄCY PRZYCISK ========== -->
+    <section id="sec-final" class="section">
+      <div class="final-box reveal">
+        <h2 class="section-title">Ostatnie pytanie... 🙈</h2>
+        <p class="final-q">Karolinko, czy jesteś najlepszą dziewczyną na świecie?</p>
+        <div class="btn-row">
+          <button class="btn-yes" id="btn-yes">TAK 💖</button>
+          <button class="btn-no" id="btn-no">Nie</button>
+        </div>
+        <div class="final-reveal hidden" id="final-reveal">
+          <div class="big-heart">❤️</div>
+          <h3>Wiedziałem! 🥳</h3>
+          <p>Kocham Cię bardzo mocno, Karolinko!</p>
+          <p class="anniversary">Happy 8 months!!!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

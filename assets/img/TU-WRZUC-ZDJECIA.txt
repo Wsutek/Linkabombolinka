@@ -1,0 +1,9 @@
+Wrzuć tutaj swoje zdjęcia (np. foto1.jpg, foto2.jpg ...).
+
+Następnie w pliku index.html w sekcji "GALERIA ZDJĘĆ" podmień kafelki:
+
+Z tego:
+  <figure class="photo"><div class="photo-ph">📷</div><figcaption>Opis</figcaption></figure>
+
+Na to:
+  <figure class="photo"><img src="assets/img/foto1.jpg" alt="opis"><figcaption>Twój opis</figcaption></figure>
