@@ -461,6 +461,12 @@ h1, h2, h3 { font-family: "Baloo 2", "Quicksand", sans-serif; line-height: 1.15;
 /* ===================== RESPONSYWNOŚĆ ===================== */
 @media (max-width: 600px) {
   .dots-nav { right: 8px; gap: 10px; }
-  .paper, .final-box { padding: 30px 22px; }
+  .paper, .final-box, .counter-box { padding: 30px 20px; }
   .letter-text { font-size: 1.05rem; }
+  /* licznik: mniejsze kafelki, żeby zmieściły się w jednym rzędzie */
+  .counter { gap: 8px; }
+  .counter-item { min-width: 0; flex: 1 1 0; padding: 12px 6px; }
+  .counter-num { font-size: 1.6rem; }
+  .counter-lbl { font-size: 0.72rem; }
+  .counter-since { font-size: 1rem; }
 }
