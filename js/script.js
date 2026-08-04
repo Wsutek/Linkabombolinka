@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     envelope.classList.add("opening");
     burstHearts(window.innerWidth / 2, window.innerHeight / 2, 40);
-    setMusic(true); // start muzyki (jeśli plik istnieje) — wywołane z gestu użytkownika
 
     setTimeout(() => {
       screenOpen.classList.add("fade-out");
@@ -155,35 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cSecs) cSecs.textContent = secs;
   }
   if (cDays) { updateCounter(); setInterval(updateCounter, 1000); }
-
-  /* ---------- MUZYKA W TLE ---------- */
-  const music = document.getElementById("bg-music");
-  const musicBtn = document.getElementById("music-btn");
-  const musicIcon = document.getElementById("music-icon");
-  let musicOn = false;
-  function setMusic(on) {
-    if (!music) return;
-    if (on) {
-      const p = music.play();
-      if (p && p.then) {
-        p.then(() => {
-          musicOn = true;
-          if (musicIcon) musicIcon.textContent = "🎵";
-          if (musicBtn) musicBtn.classList.add("playing");
-        }).catch(() => {
-          musicOn = false;
-          if (musicIcon) musicIcon.textContent = "🔇";
-          if (musicBtn) musicBtn.classList.remove("playing");
-        });
-      }
-    } else {
-      music.pause();
-      musicOn = false;
-      if (musicIcon) musicIcon.textContent = "🔇";
-      if (musicBtn) musicBtn.classList.remove("playing");
-    }
-  }
-  if (musicBtn) musicBtn.addEventListener("click", () => setMusic(!musicOn));
 
   /* =====================================================
      EFEKTY: konfetti / serduszka na canvasie
