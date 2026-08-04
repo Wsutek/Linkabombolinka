@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     envelope.classList.add("opening");
     burstHearts(window.innerWidth / 2, window.innerHeight / 2, 40);
+    setMusic(true); // start muzyki (jeśli plik istnieje) — wywołane z gestu użytkownika
 
     setTimeout(() => {
       screenOpen.classList.add("fade-out");
@@ -136,6 +137,54 @@ document.addEventListener("DOMContentLoaded", () => {
     finalReveal.scrollIntoView({ behavior: "smooth", block: "center" });
   });
 
+  /* ---------- LICZNIK "RAZEM OD..." ---------- */
+  const START_DATE = new Date(2025, 11, 6, 0, 0, 0); // 6 grudnia 2025
+  const cDays = document.getElementById("c-days");
+  const cHours = document.getElementById("c-hours");
+  const cMins = document.getElementById("c-mins");
+  const cSecs = document.getElementById("c-secs");
+  function updateCounter() {
+    let diff = Math.max(0, (Date.now() - START_DATE.getTime()) / 1000);
+    const days = Math.floor(diff / 86400); diff -= days * 86400;
+    const hours = Math.floor(diff / 3600); diff -= hours * 3600;
+    const mins = Math.floor(diff / 60);
+    const secs = Math.floor(diff - mins * 60);
+    if (cDays) cDays.textContent = days;
+    if (cHours) cHours.textContent = hours;
+    if (cMins) cMins.textContent = mins;
+    if (cSecs) cSecs.textContent = secs;
+  }
+  if (cDays) { updateCounter(); setInterval(updateCounter, 1000); }
+
+  /* ---------- MUZYKA W TLE ---------- */
+  const music = document.getElementById("bg-music");
+  const musicBtn = document.getElementById("music-btn");
+  const musicIcon = document.getElementById("music-icon");
+  let musicOn = false;
+  function setMusic(on) {
+    if (!music) return;
+    if (on) {
+      const p = music.play();
+      if (p && p.then) {
+        p.then(() => {
+          musicOn = true;
+          if (musicIcon) musicIcon.textContent = "🎵";
+          if (musicBtn) musicBtn.classList.add("playing");
+        }).catch(() => {
+          musicOn = false;
+          if (musicIcon) musicIcon.textContent = "🔇";
+          if (musicBtn) musicBtn.classList.remove("playing");
+        });
+      }
+    } else {
+      music.pause();
+      musicOn = false;
+      if (musicIcon) musicIcon.textContent = "🔇";
+      if (musicBtn) musicBtn.classList.remove("playing");
+    }
+  }
+  if (musicBtn) musicBtn.addEventListener("click", () => setMusic(!musicOn));
+
   /* =====================================================
      EFEKTY: konfetti / serduszka na canvasie
      ===================================================== */
@@ -164,12 +213,39 @@ document.addEventListener("DOMContentLoaded", () => {
       emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
       rot: Math.random() * Math.PI,
       vr: (Math.random() - 0.5) * 0.2,
+      fall: false,
+      baseAlpha: 1,
     });
   }
 
   window.burstHearts = function (x, y, count = 20) {
     for (let i = 0; i < count; i++) addParticle(x, y);
   };
+
+  /* Delikatnie padające serduszka w tle */
+  const FALL_EMOJIS = ["❤️", "💖", "💕", "🌸", "🩷"];
+  function addFalling() {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: -30,
+      vx: (Math.random() - 0.5) * 0.6,
+      vy: 0.6 + Math.random() * 1.1,
+      g: 0,
+      life: 1,
+      decay: 0,
+      size: 14 + Math.random() * 16,
+      emoji: FALL_EMOJIS[Math.floor(Math.random() * FALL_EMOJIS.length)],
+      rot: (Math.random() - 0.5) * 0.6,
+      vr: (Math.random() - 0.5) * 0.03,
+      fall: true,
+      baseAlpha: 0.35 + Math.random() * 0.35,
+      sway: Math.random() * Math.PI * 2,
+    });
+  }
+  // co jakiś czas dorzucamy jedno serduszko (limit dla wydajności)
+  setInterval(() => {
+    if (particles.filter((p) => p.fall).length < 35) addFalling();
+  }, 650);
 
   function celebrate() {
     let bursts = 0;
@@ -182,13 +258,20 @@ document.addEventListener("DOMContentLoaded", () => {
   function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     particles.forEach((p) => {
-      p.vy += p.g;
-      p.x += p.vx;
-      p.y += p.vy;
-      p.rot += p.vr;
-      p.life -= p.decay;
+      if (p.fall) {
+        p.sway += 0.02;
+        p.x += p.vx + Math.sin(p.sway) * 0.5;
+        p.y += p.vy;
+        p.rot += p.vr;
+      } else {
+        p.vy += p.g;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.vr;
+        p.life -= p.decay;
+      }
       ctx.save();
-      ctx.globalAlpha = Math.max(p.life, 0);
+      ctx.globalAlpha = Math.max(p.life, 0) * (p.baseAlpha ?? 1);
       ctx.translate(p.x, p.y);
       ctx.rotate(p.rot);
       ctx.font = p.size + "px serif";

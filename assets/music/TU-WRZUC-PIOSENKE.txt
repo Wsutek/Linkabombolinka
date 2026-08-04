@@ -1,0 +1,11 @@
+Wrzuć tutaj plik z piosenką i nazwij go dokładnie:
+
+    piosenka.mp3
+
+Czyli pełna ścieżka: assets/music/piosenka.mp3
+
+Wtedy przycisk z nutką (lewy dolny róg strony) będzie odtwarzał muzykę,
+a piosenka spróbuje ruszyć automatycznie po otwarciu koperty.
+
+Uwaga: przeglądarki blokują autoodtwarzanie z dźwiękiem, dopóki użytkownik
+czegoś nie kliknie — dlatego muzyka startuje dopiero po kliknięciu "Otwórz".

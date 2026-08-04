@@ -4,6 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Laurka dla Ciebie 💌</title>
+  <meta name="description" content="Mam dla Ciebie niespodziankę, Karolinko... 💌" />
+
+  <!-- Podgląd linku (Open Graph) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Karolinko, mam dla Ciebie niespodziankę! 💌" />
+  <meta property="og:description" content="Kliknij i otwórz laurkę zrobioną specjalnie dla Ciebie ❤️" />
+  <meta property="og:image" content="https://wsutek.github.io/Linkabombolinka/assets/img/pierwszy-raz.jpg" />
+  <meta property="og:url" content="https://wsutek.github.io/Linkabombolinka/" />
+  <meta property="og:locale" content="pl_PL" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Karolinko, mam dla Ciebie niespodziankę! 💌" />
+  <meta name="twitter:description" content="Kliknij i otwórz laurkę zrobioną specjalnie dla Ciebie ❤️" />
+  <meta name="twitter:image" content="https://wsutek.github.io/Linkabombolinka/assets/img/pierwszy-raz.jpg" />
+  <meta name="theme-color" content="#ff6fa5" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -39,6 +54,7 @@
     <!-- Pasek nawigacji między sekcjami -->
     <nav class="dots-nav" aria-label="Nawigacja">
       <a href="#sec-letter" class="dot" data-label="List">•</a>
+      <a href="#sec-counter" class="dot" data-label="Razem od...">•</a>
       <a href="#sec-gallery" class="dot" data-label="Galeria">•</a>
       <a href="#sec-cards" class="dot" data-label="Za co Cię kocham">•</a>
       <a href="#sec-final" class="dot" data-label="Finał">•</a>
@@ -56,6 +72,20 @@
           <p>Dziękuję, że jesteś, Karolinko — Kocham Cię ❤️</p>
         </div>
         <div class="scroll-hint">⌄</div>
+      </div>
+    </section>
+
+    <!-- ========== LICZNIK "RAZEM OD..." ========== -->
+    <section id="sec-counter" class="section">
+      <div class="counter-box reveal">
+        <h2 class="section-title">Jesteśmy razem już... 💞</h2>
+        <div class="counter" id="counter">
+          <div class="counter-item"><span class="counter-num" id="c-days">0</span><span class="counter-lbl">dni</span></div>
+          <div class="counter-item"><span class="counter-num" id="c-hours">0</span><span class="counter-lbl">godzin</span></div>
+          <div class="counter-item"><span class="counter-num" id="c-mins">0</span><span class="counter-lbl">minut</span></div>
+          <div class="counter-item"><span class="counter-num" id="c-secs">0</span><span class="counter-lbl">sekund</span></div>
+        </div>
+        <p class="counter-since">...i liczę dalej — od 6 grudnia 2025 ❤️</p>
       </div>
     </section>
 
@@ -143,6 +173,12 @@
       </div>
     </section>
   </main>
+
+  <!-- Muzyka w tle -->
+  <audio id="bg-music" src="assets/music/piosenka.mp3" loop preload="none"></audio>
+  <button id="music-btn" class="music-btn" aria-label="Włącz/wyłącz muzykę" title="Muzyka">
+    <span id="music-icon">🔇</span>
+  </button>
 
   <script src="js/script.js"></script>
 </body>
