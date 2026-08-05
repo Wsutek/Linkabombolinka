@@ -170,6 +170,26 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", resize);
 
   const EMOJIS = ["❤️", "💖", "💕", "✨", "🎀", "💗", "🌸"];
+  const FALL_EMOJIS = ["❤️", "💖", "💕", "🌸", "🩷"];
+
+  /* Sprite cache: każde emoji renderujemy RAZ do offscreen-canvasa,
+     a potem tylko szybko rysujemy gotowy obrazek (drawImage). */
+  const SPRITE = 96;
+  const spriteCache = {};
+  function getSprite(emoji) {
+    if (spriteCache[emoji]) return spriteCache[emoji];
+    const c = document.createElement("canvas");
+    c.width = SPRITE; c.height = SPRITE;
+    const cx = c.getContext("2d");
+    cx.font = Math.round(SPRITE * 0.78) + "px serif";
+    cx.textAlign = "center";
+    cx.textBaseline = "middle";
+    cx.fillText(emoji, SPRITE / 2, SPRITE / 2 + 2);
+    spriteCache[emoji] = c;
+    return c;
+  }
+  // Pre-render wszystkich używanych emoji
+  [...new Set([...EMOJIS, ...FALL_EMOJIS])].forEach(getSprite);
 
   function addParticle(x, y) {
     particles.push({
@@ -180,7 +200,7 @@ document.addEventListener("DOMContentLoaded", () => {
       life: 1,
       decay: 0.008 + Math.random() * 0.01,
       size: 18 + Math.random() * 22,
-      emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
+      sprite: getSprite(EMOJIS[Math.floor(Math.random() * EMOJIS.length)]),
       rot: Math.random() * Math.PI,
       vr: (Math.random() - 0.5) * 0.2,
       fall: false,
@@ -193,7 +213,6 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   /* Delikatnie padające serduszka w tle */
-  const FALL_EMOJIS = ["❤️", "💖", "💕", "🌸", "🩷"];
   function addFalling() {
     particles.push({
       x: Math.random() * canvas.width,
@@ -204,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
       life: 1,
       decay: 0,
       size: 14 + Math.random() * 16,
-      emoji: FALL_EMOJIS[Math.floor(Math.random() * FALL_EMOJIS.length)],
+      sprite: getSprite(FALL_EMOJIS[Math.floor(Math.random() * FALL_EMOJIS.length)]),
       rot: (Math.random() - 0.5) * 0.6,
       vr: (Math.random() - 0.5) * 0.03,
       fall: true,
@@ -212,10 +231,12 @@ document.addEventListener("DOMContentLoaded", () => {
       sway: Math.random() * Math.PI * 2,
     });
   }
-  // co jakiś czas dorzucamy jedno serduszko (limit dla wydajności)
+  // mniej serduszek + rzadziej = lżej dla przeglądarki
+  const MAX_FALLING = window.innerWidth < 700 ? 10 : 16;
   setInterval(() => {
-    if (particles.filter((p) => p.fall).length < 35) addFalling();
-  }, 650);
+    if (document.hidden) return;
+    if (particles.filter((p) => p.fall).length < MAX_FALLING) addFalling();
+  }, 900);
 
   function celebrate() {
     let bursts = 0;
@@ -225,9 +246,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 250);
   }
 
+  let running = false;
   function loop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((p) => {
+    for (let i = 0; i < particles.length; i++) {
+      const p = particles[i];
       if (p.fall) {
         p.sway += 0.02;
         p.x += p.vx + Math.sin(p.sway) * 0.5;
@@ -240,18 +263,22 @@ document.addEventListener("DOMContentLoaded", () => {
         p.rot += p.vr;
         p.life -= p.decay;
       }
-      ctx.save();
       ctx.globalAlpha = Math.max(p.life, 0) * (p.baseAlpha ?? 1);
-      ctx.translate(p.x, p.y);
+      ctx.setTransform(1, 0, 0, 1, p.x, p.y);
       ctx.rotate(p.rot);
-      ctx.font = p.size + "px serif";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(p.emoji, 0, 0);
-      ctx.restore();
-    });
+      ctx.drawImage(p.sprite, -p.size / 2, -p.size / 2, p.size, p.size);
+    }
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.globalAlpha = 1;
     particles = particles.filter((p) => p.life > 0 && p.y < canvas.height + 60);
+    if (document.hidden) { running = false; return; } // pauza gdy karta nieaktywna
     requestAnimationFrame(loop);
   }
-  loop();
+  function startLoop() {
+    if (running) return;
+    running = true;
+    requestAnimationFrame(loop);
+  }
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) startLoop(); });
+  startLoop();
 });
