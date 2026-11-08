@@ -456,7 +456,68 @@ h1, h2, h3 { font-family: "Baloo 2", "Quicksand", sans-serif; line-height: 1.15;
   font-variant-numeric: tabular-nums;
 }
 .counter-lbl { margin-top: 6px; font-size: 0.85rem; font-weight: 600; opacity: 0.75; }
-.counter-since { margin-top: 24px; font-size: 1.1rem; font-weight: 600; }
+.counter-since { margin-top: 24px; font-size: 1.1rem; font-weight: 600; transition: opacity 0.4s ease; }
+
+/* ===================== ROCZNICA: PĘKANIE LICZNIKA ===================== */
+.counter-stage { position: relative; }
+.crack {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  overflow: visible;
+}
+.crack path {
+  fill: none;
+  stroke: #5a3d4d;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 400;
+  stroke-dashoffset: 400;
+  filter: drop-shadow(0 0 2px #fff);
+}
+.counter-stage.cracking { animation: shake 0.12s linear infinite; }
+.counter-stage.cracking .crack { opacity: 1; }
+.counter-stage.cracking .crack path { animation: crackDraw 0.9s ease-out forwards; }
+.counter-stage.cracking .crack path:nth-child(n+2) { animation-delay: 0.35s; }
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0) rotate(0); }
+  25% { transform: translate(-3px, 1px) rotate(-0.6deg); }
+  50% { transform: translate(3px, -1px) rotate(0.6deg); }
+  75% { transform: translate(-2px, -1px) rotate(-0.3deg); }
+}
+@keyframes crackDraw { to { stroke-dashoffset: 0; } }
+
+.counter-stage.broken { animation: none; }
+.counter-stage.broken .crack { opacity: 0; transition: opacity 0.3s ease; }
+.counter-stage.broken .counter-item {
+  animation: shardFall 1s cubic-bezier(0.5, 0, 0.9, 0.6) forwards;
+}
+@keyframes shardFall {
+  0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  15% { transform: translate(calc(var(--dx) * 0.2), -18px) rotate(calc(var(--rot) * 0.2)); opacity: 1; }
+  100% { transform: translate(var(--dx), 340px) rotate(var(--rot)); opacity: 0; }
+}
+
+.anniv-reveal { margin-top: 10px; animation: pop 0.6s ease; }
+.anniv-ring { font-size: 4.2rem; animation: heartBeat 1.4s infinite; }
+.anniv-reveal h3 { font-size: 2rem; color: var(--pink); margin-top: 6px; }
+.anniv-reveal p { font-size: 1.1rem; margin-top: 8px; font-weight: 600; }
+.anniv-btn { display: inline-block; text-decoration: none; white-space: nowrap; }
+@media (max-width: 600px) {
+  .anniv-btn { font-size: 1.05rem; padding: 12px 24px; }
+  .anniv-reveal h3 { font-size: 1.7rem; }
+}
+
+/* Podstrona rocznicy */
+.anniv-page { overflow: hidden; }
+.anniv-paper { position: relative; z-index: 1; animation: pop 0.7s ease; }
+.anniv-date { margin-top: 10px; font-weight: 700; color: var(--purple); }
+.anniv-text p { opacity: 1; transform: none; }
 
 /* ===================== RESPONSYWNOŚĆ ===================== */
 @media (max-width: 600px) {

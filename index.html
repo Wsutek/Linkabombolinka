@@ -80,15 +80,30 @@
 
     <!-- ========== LICZNIK "RAZEM OD..." ========== -->
     <section id="sec-counter" class="section">
-      <div class="counter-box reveal">
-        <h2 class="section-title">Jesteśmy razem już... 💞</h2>
-        <div class="counter" id="counter">
-          <div class="counter-item"><span class="counter-num" id="c-days">0</span><span class="counter-lbl">dni</span></div>
-          <div class="counter-item"><span class="counter-num" id="c-hours">0</span><span class="counter-lbl">godzin</span></div>
-          <div class="counter-item"><span class="counter-num" id="c-mins">0</span><span class="counter-lbl">minut</span></div>
-          <div class="counter-item"><span class="counter-num" id="c-secs">0</span><span class="counter-lbl">sekund</span></div>
+      <div class="counter-box reveal" id="counter-box">
+        <h2 class="section-title" id="counter-title">Jesteśmy razem już... 💞</h2>
+        <div class="counter-stage" id="counter-stage">
+          <div class="counter" id="counter">
+            <div class="counter-item"><span class="counter-num" id="c-days">0</span><span class="counter-lbl">dni</span></div>
+            <div class="counter-item"><span class="counter-num" id="c-hours">0</span><span class="counter-lbl">godzin</span></div>
+            <div class="counter-item"><span class="counter-num" id="c-mins">0</span><span class="counter-lbl">minut</span></div>
+            <div class="counter-item"><span class="counter-num" id="c-secs">0</span><span class="counter-lbl">sekund</span></div>
+          </div>
+          <svg class="crack" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M200 0 L188 26 L214 44 L192 70 L208 92 L196 120" />
+            <path d="M188 26 L150 34 L118 22 L80 38" />
+            <path d="M214 44 L256 50 L290 36 L330 52" />
+            <path d="M192 70 L150 84 L110 76" />
+            <path d="M208 92 L250 100 L300 90 L350 104" />
+          </svg>
         </div>
-        <p class="counter-since">...i liczę dalej, od 6 grudnia 2025 ❤️</p>
+        <p class="counter-since" id="counter-since">...i liczę dalej, od 6 grudnia 2025 ❤️</p>
+        <div class="anniv-reveal hidden" id="anniv-reveal">
+          <div class="anniv-ring">💍</div>
+          <h3>365 dni razem!</h3>
+          <p>Wszystkiego najlepszego z okazji naszej pierwszej rocznicy, Karolinko ❤️</p>
+          <a class="btn-primary anniv-btn" href="rocznica.html">Otwórz niespodziankę 🎁</a>
+        </div>
       </div>
     </section>
 

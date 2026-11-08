@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nasza pierwsza rocznica 💍</title>
+  <meta name="robots" content="noindex" />
+  <script>
+    // Przed 6 grudnia 2026 podstrona jest zablokowana (chyba że ?rocznica = podgląd)
+    (function () {
+      var test = new URLSearchParams(location.search).has("rocznica");
+      if (!test && Date.now() < new Date(2026, 11, 6).getTime()) location.replace("index.html");
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <section class="section anniv-page">
+    <div class="floaty floaty-1">💍</div>
+    <div class="floaty floaty-2">✨</div>
+    <div class="floaty floaty-3">🎉</div>
+    <div class="floaty floaty-4">💕</div>
+
+    <div class="paper anniv-paper">
+      <h1 class="section-title">Nasza pierwsza rocznica 💍</h1>
+      <p class="anniv-date">6 grudnia 2025 → 6 grudnia 2026</p>
+      <div class="letter-text anniv-text">
+        <!-- PODMIEŃ TREŚĆ NA SWOJĄ -->
+        <p>Karolinko,</p>
+        <p>właśnie minął nasz pierwszy wspólny rok. 365 dni, w których nauczyłaś mnie więcej, niż się spodziewałem.</p>
+        <p>Dziękuję za każdy dzień, każdy śmiech i każdą chwilę, kiedy po prostu byłaś obok.</p>
+        <p>Za nami pierwszy rok, przed nami dużo więcej. Kocham Cię ❤️</p>
+      </div>
+      <a class="btn-primary anniv-btn" href="index.html">Wróć do laurki 💌</a>
+    </div>
+  </section>
+</body>
+</html>

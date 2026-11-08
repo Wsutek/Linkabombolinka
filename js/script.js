@@ -143,6 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cMins = document.getElementById("c-mins");
   const cSecs = document.getElementById("c-secs");
   function updateCounter() {
+    if (document.querySelector(".counter-stage.cracking, .counter-stage.broken")) return;
     let diff = Math.max(0, (Date.now() - START_DATE.getTime()) / 1000);
     const days = Math.floor(diff / 86400); diff -= days * 86400;
     const hours = Math.floor(diff / 3600); diff -= hours * 3600;
@@ -154,6 +155,58 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cSecs) cSecs.textContent = secs;
   }
   if (cDays) { updateCounter(); setInterval(updateCounter, 1000); }
+
+  /* ---------- ROCZNICA: pękanie licznika 6 grudnia 2026 ---------- */
+  // ?rocznica w adresie = podgląd efektu przed terminem
+  const ANNIV_DATE = new Date(2026, 11, 6, 0, 0, 0);
+  const annivTest = new URLSearchParams(location.search).has("rocznica");
+  const counterStage = document.getElementById("counter-stage");
+  const counterBox = document.getElementById("counter-box");
+  let annivDone = false;
+  let counterVisible = false;
+
+  function annivReached() {
+    return annivTest || Date.now() >= ANNIV_DATE.getTime();
+  }
+
+  function breakCounter() {
+    if (annivDone || !counterStage) return;
+    annivDone = true;
+    if (cDays) { cDays.textContent = 365; cHours.textContent = 0; cMins.textContent = 0; cSecs.textContent = 0; }
+
+    counterStage.classList.add("cracking");
+    setTimeout(() => {
+      counterStage.querySelectorAll(".counter-item").forEach((item) => {
+        item.style.setProperty("--dx", (Math.random() - 0.5) * 260 + "px");
+        item.style.setProperty("--rot", (Math.random() - 0.5) * 120 + "deg");
+        item.style.animationDelay = Math.random() * 0.15 + "s";
+      });
+      counterStage.classList.remove("cracking");
+      counterStage.classList.add("broken");
+      document.getElementById("counter-since").style.opacity = 0;
+      const r = counterStage.getBoundingClientRect();
+      burstHearts(r.left + r.width / 2, r.top + r.height / 2, 30);
+    }, 1500);
+
+    setTimeout(() => {
+      counterStage.style.display = "none";
+      document.getElementById("counter-since").style.display = "none";
+      document.getElementById("counter-title").textContent = "Mamy rocznicę! 🎉";
+      const reveal = document.getElementById("anniv-reveal");
+      if (annivTest) reveal.querySelector("a").href = "rocznica.html?rocznica";
+      reveal.classList.remove("hidden");
+      celebrate();
+    }, 2600);
+  }
+
+  if (counterBox) {
+    new IntersectionObserver((entries) => {
+      counterVisible = entries[0].isIntersecting;
+      if (counterVisible && annivReached()) breakCounter();
+    }, { threshold: 0.6 }).observe(counterBox);
+    // jeśli strona jest otwarta dokładnie o północy, efekt odpali się na żywo
+    setInterval(() => { if (counterVisible && annivReached()) breakCounter(); }, 1000);
+  }
 
   /* =====================================================
      EFEKTY: konfetti / serduszka na canvasie
