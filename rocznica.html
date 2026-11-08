@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nasza pierwsza rocznica 💍</title>
+  <title>Nasz pierwszy rok ✨</title>
   <meta name="robots" content="noindex" />
   <script>
     // Przed 6 grudnia 2026 podstrona jest zablokowana (chyba że ?rocznica = podgląd)
@@ -14,28 +14,48 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/rocznica.css" />
 </head>
 <body>
-  <section class="section anniv-page">
-    <div class="floaty floaty-1">💍</div>
-    <div class="floaty floaty-2">✨</div>
-    <div class="floaty floaty-3">🎉</div>
-    <div class="floaty floaty-4">💕</div>
+  <canvas id="sparkles"></canvas>
 
-    <div class="paper anniv-paper">
-      <h1 class="section-title">Nasza pierwsza rocznica 💍</h1>
-      <p class="anniv-date">6 grudnia 2025 → 6 grudnia 2026</p>
-      <div class="letter-text anniv-text">
-        <!-- PODMIEŃ TREŚĆ NA SWOJĄ -->
-        <p>Karolinko,</p>
-        <p>właśnie minął nasz pierwszy wspólny rok. 365 dni, w których nauczyłaś mnie więcej, niż się spodziewałem.</p>
-        <p>Dziękuję za każdy dzień, każdy śmiech i każdą chwilę, kiedy po prostu byłaś obok.</p>
-        <p>Za nami pierwszy rok, przed nami dużo więcej. Kocham Cię ❤️</p>
+  <main class="wrap">
+    <header class="hero">
+      <p class="hero-kicker"><span class="nowrap">6 grudnia 2025</span> &nbsp;✦&nbsp; <span class="nowrap">6 grudnia 2026</span></p>
+      <h1>Nasz pierwszy rok</h1>
+      <div class="ornament">✦ ✦ ✦</div>
+    </header>
+
+    <article class="letter">
+      <p class="salutation">Moja Karolinko,</p>
+      <p>to już rok. Rok, który minął szybciej niż jakikolwiek inny, chociaż zmieściło się w nim więcej niż w wielu poprzednich razem.</p>
+      <p>Dziękuję Ci za każdy zwykły dzień, który przy Tobie stawał się niezwykły. Za to, że przy Tobie mogę i chcę być sobą. Za cierpliwość do mnie, nawet kiedy sam bym jej nie miał.</p>
+      <p>Właśnie otworzyliśmy nowy rozdział, bo zamieszkaliśmy razem. Mam nadzieję, że zbudujemy miejsce, do którego zawsze będziemy chcieli wracać. Miejsce, które będzie pachniało nami, gdzie będzie ciepło, spokojnie i trochę głośno od naszego śmiechu.</p>
+      <p>Nie umiem czarować, ale przy Tobie czasem mam wrażenie, że coś magicznego dzieje się samo.</p>
+      <p class="closing">Kocham Cię. Dziś świętujemy pierwszy rok, a ja już nie mogę się doczekać kolejnych.</p>
+    </article>
+
+    <section class="trick">
+      <h2>A teraz... wybierz kartę</h2>
+      <p class="trick-sub">Którąkolwiek. Zaufaj mi.</p>
+      <div class="deck" id="deck">
+        <button class="pcard" aria-label="Karta 1"><span class="pcard-inner"><span class="pcard-back"></span><span class="pcard-front"></span></span></button>
+        <button class="pcard" aria-label="Karta 2"><span class="pcard-inner"><span class="pcard-back"></span><span class="pcard-front"></span></span></button>
+        <button class="pcard" aria-label="Karta 3"><span class="pcard-inner"><span class="pcard-back"></span><span class="pcard-front"></span></span></button>
       </div>
-      <a class="btn-primary anniv-btn" href="index.html">Wróć do laurki 💌</a>
-    </div>
-  </section>
+
+      <div class="reveal-box" id="reveal-box">
+        <p class="reveal-time">Dziś, 19:00</p>
+        <p class="reveal-text">Zabieram Cię tam, gdzie niemożliwe dzieje się na Twoich oczach.<br />Bądź gotowa na odrobinę magii ✨</p>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <a class="back-link" href="index.html">Wróć do laurki</a>
+    </footer>
+  </main>
+
+  <script src="js/rocznica.js"></script>
 </body>
 </html>

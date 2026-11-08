@@ -512,13 +512,6 @@ h1, h2, h3 { font-family: "Baloo 2", "Quicksand", sans-serif; line-height: 1.15;
   .anniv-btn { font-size: 1.05rem; padding: 12px 24px; }
   .anniv-reveal h3 { font-size: 1.7rem; }
 }
-
-/* Podstrona rocznicy */
-.anniv-page { overflow: hidden; }
-.anniv-paper { position: relative; z-index: 1; animation: pop 0.7s ease; }
-.anniv-date { margin-top: 10px; font-weight: 700; color: var(--purple); }
-.anniv-text p { opacity: 1; transform: none; }
-
 /* ===================== RESPONSYWNOŚĆ ===================== */
 @media (max-width: 600px) {
   .dots-nav { right: 8px; gap: 10px; }
