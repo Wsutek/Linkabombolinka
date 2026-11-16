@@ -103,14 +103,43 @@
     // Faza 3: restart z niespodzianką
     clearInterval(scramble);
     render(365, "00", "00", "00");
-    setTitle("Mamy rocznicę! 🎉");
-    since.classList.add("hidden");
+    setTitle("System przejęty przez miłość 💘");
+    since.textContent = "> uptime: 365 dni bez restartu\u00a0❤️";
     if (testCountdown || testNow) {
       document.getElementById("anniv-btn").href = "rocznica.html?rocznica";
     }
     reveal.classList.remove("hidden");
     body.classList.remove("glitching", "hacked");
     body.classList.add("rebooted");
+    startRain();
+  }
+
+  function startRain() {
+    const canvas = document.getElementById("love-rain");
+    const ctx = canvas.getContext("2d");
+    const SIZE = 16;
+    const CHARS = "01♥01❤01♡";
+    let cols = [];
+    function resize() {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+      cols = Array.from({ length: Math.ceil(innerWidth / SIZE) }, () => Math.random() * -50);
+    }
+    resize();
+    addEventListener("resize", resize);
+    ctx.font = SIZE + "px 'Share Tech Mono', monospace";
+    setInterval(() => {
+      if (document.hidden) return;
+      ctx.fillStyle = "rgba(11, 3, 16, 0.12)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = SIZE + "px 'Share Tech Mono', monospace";
+      cols.forEach((y, i) => {
+        const ch = CHARS[Math.floor(Math.random() * CHARS.length)];
+        ctx.fillStyle = ch === "0" || ch === "1" ? "#ff2bd6" : "#ff9cc6";
+        ctx.fillText(ch, i * SIZE, y * SIZE);
+        cols[i] = y * SIZE > canvas.height && Math.random() > 0.97 ? 0 : y + 1;
+      });
+    }, 60);
   }
 
   tick();
