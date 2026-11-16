@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Jesteśmy razem już... 💞</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/licznik.css" />
+</head>
+<body>
+  <main class="stage">
+    <div class="counter-box" id="counter-box">
+      <h2 class="section-title glitch-text" id="counter-title" data-text="Jesteśmy razem już... 💞">Jesteśmy razem już... 💞</h2>
+      <div class="counter" id="counter">
+        <div class="counter-item"><span class="counter-num" id="c-days">0</span><span class="counter-lbl">dni</span></div>
+        <div class="counter-item"><span class="counter-num" id="c-hours">0</span><span class="counter-lbl">godzin</span></div>
+        <div class="counter-item"><span class="counter-num" id="c-mins">0</span><span class="counter-lbl">minut</span></div>
+        <div class="counter-item"><span class="counter-num" id="c-secs">0</span><span class="counter-lbl">sekund</span></div>
+      </div>
+      <p class="counter-since" id="counter-since">...i liczę dalej, od 6 grudnia 2025&nbsp;❤️</p>
+
+      <div class="anniv-reveal hidden" id="anniv-reveal">
+        <h3 class="glitch-text" data-text="365 dni razem">365 dni razem</h3>
+        <p>System przejęty przez miłość. Wszystkiego najlepszego z okazji naszej pierwszej rocznicy, Karolinko&nbsp;❤️</p>
+        <a class="btn-primary" id="anniv-btn" href="rocznica.html">Otwórz niespodziankę 🎁</a>
+      </div>
+    </div>
+  </main>
+
+  <div class="hack-overlay" id="hack-overlay" aria-hidden="true">
+    <div class="terminal" id="terminal"></div>
+  </div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <script src="js/licznik.js"></script>
+</body>
+</html>
