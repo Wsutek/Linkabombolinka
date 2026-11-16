@@ -76,8 +76,8 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------- Sztuczka: każda karta to "wymuszona" karta ---------- */
   const MAIN = '<span class="big">19:00</span><span class="emoji">✨</span><span class="label">Dziś wieczorem</span>';
   const OTHERS = [
-    '<span class="emoji">🏡</span><span class="label">Nasz wspólny dom</span>',
-    '<span class="emoji">💛</span><span class="label">Ty i ja</span>',
+    '<span class="emoji">🏨</span><span class="label">Hotel Presidential</span>',
+    '<span class="emoji">💛</span><span class="label">Ty, ja i odrobina magii</span>',
   ];
 
   const deck = document.getElementById("deck");
