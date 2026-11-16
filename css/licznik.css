@@ -108,7 +108,8 @@ body.glitching .counter-num {
 }
 body.glitching .counter-item:nth-child(odd) { animation: itemGlitch 0.22s steps(2) infinite; }
 body.glitching .counter-item:nth-child(even) { animation: itemGlitch 0.3s steps(2) infinite reverse; }
-body.glitching .counter-since { font-family: "Share Tech Mono", monospace; color: #222; }
+body.glitching .counter-since { font-family: "Share Tech Mono", monospace; color: #d0002a; }
+body.glitching .section-title { font-family: "Share Tech Mono", monospace; color: #d0002a; }
 
 .glitch-text { position: relative; }
 body.glitching .glitch-text::before,
@@ -144,18 +145,29 @@ body.glitching .glitch-text::after,
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: #050807;
+  background: radial-gradient(ellipse at center, #1a0406 0%, #050101 75%);
   opacity: 0;
   visibility: hidden;
+  transition: background 1s ease;
 }
+.hack-overlay.love { background: radial-gradient(ellipse at center, #2a0820 0%, #0b0310 75%); }
+.hack-overlay.love::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: var(--pink);
+  animation: loveFlash 0.9s ease-out forwards;
+}
+@keyframes loveFlash { from { opacity: 0.85; } to { opacity: 0; } }
 body.hacked .hack-overlay { opacity: 1; visibility: visible; animation: flicker 0.15s steps(2) 6; }
 .terminal {
   width: min(620px, 100%);
   font-family: "Share Tech Mono", monospace;
   font-size: clamp(0.95rem, 3.6vw, 1.25rem);
-  line-height: 1.7;
-  color: var(--hack);
-  text-shadow: 0 0 8px rgba(57, 255, 136, 0.7);
+  line-height: 1.6;
+  color: #d8c9c9;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -304,9 +316,9 @@ body.rebooted .btn-primary:hover { color: #0b0310; background: var(--pink); }
 
 @keyframes boxGlitch {
   0%   { transform: translate(0, 0); clip-path: inset(0 0 0 0); filter: none; }
-  25%  { transform: translate(-6px, 2px) skewX(-4deg); clip-path: inset(12% 0 30% 0); filter: hue-rotate(90deg); }
-  50%  { transform: translate(5px, -3px); clip-path: inset(0 0 0 0); filter: invert(1); }
-  75%  { transform: translate(-2px, 4px) skewX(3deg); clip-path: inset(40% 0 8% 0); filter: hue-rotate(-90deg) saturate(3); }
+  25%  { transform: translate(-6px, 2px) skewX(-4deg); clip-path: inset(12% 0 30% 0); filter: contrast(1.6); }
+  50%  { transform: translate(5px, -3px); clip-path: inset(0 0 0 0); filter: brightness(0.6) sepia(1) saturate(6) hue-rotate(-30deg); }
+  75%  { transform: translate(-2px, 4px) skewX(3deg); clip-path: inset(40% 0 8% 0); filter: saturate(3); }
   100% { transform: translate(0, 0); clip-path: inset(0 0 0 0); filter: none; }
 }
 @keyframes itemGlitch {
