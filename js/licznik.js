@@ -56,10 +56,10 @@
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  async function typeLine(text, cls, pause = 280) {
+  async function typeLine(text, cls, pause = 280, target = terminal) {
     const line = document.createElement("div");
     if (cls) line.className = cls;
-    terminal.appendChild(line);
+    target.appendChild(line);
     const cursor = document.createElement("span");
     cursor.className = "cursor";
     cursor.textContent = "█";
@@ -130,11 +130,38 @@
     startRain();
   }
 
+  // Przejście do magicznej podstrony
+  const annivBtn = document.getElementById("anniv-btn");
+  annivBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    if (body.classList.contains("to-magic")) return;
+    body.classList.add("to-magic");
+    rainGold = true;
+    await sleep(800);
+
+    const magic = document.getElementById("magic-overlay");
+    const magicText = document.getElementById("magic-text");
+    magic.classList.add("show");
+    await typeLine("> milosc.exe: zadanie wykonane", "", 400, magicText);
+    await typeLine("> uruchamianie: magia.exe", "", 300, magicText);
+    await typeLine("  ✦ ✦ ✦", "", 500, magicText);
+
+    magic.classList.add("star");
+    await sleep(1300);
+    magic.classList.add("flash");
+    await sleep(900);
+    try { sessionStorage.setItem("magicIntro", "1"); } catch (_) {}
+    location.href = annivBtn.href;
+  });
+
+  let rainGold = false;
+
   function startRain() {
     const canvas = document.getElementById("love-rain");
     const ctx = canvas.getContext("2d");
     const SIZE = 16;
     const CHARS = "01♥01❤01♡";
+    const GOLD_CHARS = "✦✧·★✦·✧";
     let cols = [];
     function resize() {
       canvas.width = innerWidth;
@@ -146,12 +173,14 @@
     ctx.font = SIZE + "px 'Share Tech Mono', monospace";
     setInterval(() => {
       if (document.hidden) return;
-      ctx.fillStyle = "rgba(11, 3, 16, 0.12)";
+      ctx.fillStyle = rainGold ? "rgba(18, 11, 29, 0.12)" : "rgba(11, 3, 16, 0.12)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.font = SIZE + "px 'Share Tech Mono', monospace";
+      const chars = rainGold ? GOLD_CHARS : CHARS;
       cols.forEach((y, i) => {
-        const ch = CHARS[Math.floor(Math.random() * CHARS.length)];
-        ctx.fillStyle = ch === "0" || ch === "1" ? "#ff2bd6" : "#ff9cc6";
+        const ch = chars[Math.floor(Math.random() * chars.length)];
+        if (rainGold) ctx.fillStyle = Math.random() < 0.5 ? "#d9b56c" : "#f3dfa8";
+        else ctx.fillStyle = ch === "0" || ch === "1" ? "#ff2bd6" : "#ff9cc6";
         ctx.fillText(ch, i * SIZE, y * SIZE);
         cols[i] = y * SIZE > canvas.height && Math.random() > 0.97 ? 0 : y + 1;
       });

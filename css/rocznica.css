@@ -42,6 +42,36 @@ h1, h2, .letter, .reveal-time {
   font-family: "Cormorant Garamond", Georgia, serif;
 }
 
+/* ---------- Wejście po przejściu z licznika ---------- */
+.intro-flash { display: none; }
+.from-love .intro-flash {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background: radial-gradient(circle, #fffaf0 0%, #f3dfa8 45%, #d9b56c 100%);
+  animation: introFade 1.6s ease-out 0.2s forwards;
+}
+.sys-line { display: none; }
+.from-love .sys-line {
+  display: block;
+  margin-bottom: 18px;
+  font-family: "Share Tech Mono", monospace;
+  font-size: 0.9rem;
+  color: var(--gold);
+  opacity: 0;
+  animation: sysLine 4s ease 1.4s forwards;
+}
+.from-love .hero { animation-delay: 1s; }
+@keyframes introFade { to { opacity: 0; visibility: hidden; } }
+@keyframes sysLine {
+  0%   { opacity: 0; }
+  15%  { opacity: 0.85; }
+  70%  { opacity: 0.85; }
+  100% { opacity: 0.35; }
+}
+
 /* ---------- Nagłówek ---------- */
 .hero { text-align: center; animation: fadeUp 1.2s ease both; }
 .hero-kicker {

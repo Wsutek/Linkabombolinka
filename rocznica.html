@@ -10,18 +10,26 @@
     (function () {
       var test = new URLSearchParams(location.search).has("rocznica");
       if (!test && Date.now() < new Date(2026, 11, 6).getTime()) location.replace("index.html");
+      try {
+        if (sessionStorage.getItem("magicIntro")) {
+          sessionStorage.removeItem("magicIntro");
+          document.documentElement.classList.add("from-love");
+        }
+      } catch (_) {}
     })();
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Quicksand:wght@400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/rocznica.css" />
 </head>
 <body>
+  <div class="intro-flash" aria-hidden="true"></div>
   <canvas id="sparkles"></canvas>
 
   <main class="wrap">
     <header class="hero">
+      <p class="sys-line">&gt; magia.exe uruchomiona ✦</p>
       <p class="hero-kicker"><span class="nowrap">6 grudnia 2025</span> &nbsp;✦&nbsp; <span class="nowrap">6 grudnia 2026</span></p>
       <h1>Nasz pierwszy rok</h1>
       <div class="ornament">✦ ✦ ✦</div>

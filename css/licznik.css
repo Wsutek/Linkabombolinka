@@ -310,6 +310,70 @@ body.rebooted .btn-primary {
 }
 body.rebooted .btn-primary:hover { color: #0b0310; background: var(--pink); }
 
+/* ---------- Przejście do magii ---------- */
+body.rebooted.to-magic .counter-box { animation: crtOff 0.75s ease-in forwards; }
+body.to-magic #love-rain { opacity: 0.8; }
+body.to-magic .scanlines { opacity: 0; }
+
+.magic-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.magic-overlay.show { opacity: 1; }
+.magic-text {
+  min-height: 5em;
+  font-family: "Share Tech Mono", monospace;
+  font-size: clamp(1rem, 3.8vw, 1.3rem);
+  line-height: 1.6;
+  color: #f3dfa8;
+  text-shadow: 0 0 10px rgba(217, 181, 108, 0.8);
+  white-space: pre-wrap;
+}
+.magic-text .cursor { display: inline-block; width: 0.6em; animation: blink 0.8s steps(1) infinite; }
+.magic-overlay.star .magic-text { transition: opacity 0.6s ease; opacity: 0; }
+.magic-star {
+  position: absolute;
+  font-size: 4rem;
+  color: #fff3cf;
+  text-shadow: 0 0 20px #f3dfa8, 0 0 50px #d9b56c;
+  opacity: 0;
+  transform: scale(0);
+}
+.magic-overlay.star .magic-star { animation: starBorn 1.3s cubic-bezier(0.3, 1.4, 0.5, 1) forwards; }
+.magic-flash {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fffaf0 0%, #f3dfa8 45%, #d9b56c 100%);
+  transform: scale(0);
+}
+.magic-overlay.flash .magic-flash { animation: flashGrow 0.9s ease-in forwards; }
+
+@keyframes crtOff {
+  0%   { transform: none; filter: none; opacity: 1; }
+  55%  { transform: scaleY(0.006) scaleX(1); filter: brightness(4); opacity: 1; }
+  100% { transform: scaleY(0.006) scaleX(0); filter: brightness(6); opacity: 0; }
+}
+@keyframes starBorn {
+  0%   { opacity: 0; transform: scale(0) rotate(0deg); }
+  60%  { opacity: 1; transform: scale(1.6) rotate(200deg); }
+  100% { opacity: 1; transform: scale(1.2) rotate(360deg); }
+}
+@keyframes flashGrow { to { transform: scale(220); } }
+
 @keyframes lineIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: none; } }
 @keyframes pulse { 50% { text-shadow: 0 0 4px var(--pink), 0 0 12px var(--magenta); } }
 @keyframes btnGlow { 50% { box-shadow: 0 0 28px rgba(255, 43, 214, 0.7); } }

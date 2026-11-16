@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   /* ---------- List: linijka po linijce ---------- */
+  const fromLove = document.documentElement.classList.contains("from-love");
+  const letterDelay = fromLove ? 2200 : 900;
   document.querySelectorAll(".letter p").forEach((p, i) => {
-    setTimeout(() => p.classList.add("show"), 900 + i * 1100);
+    setTimeout(() => p.classList.add("show"), letterDelay + i * 1100);
   });
 
   /* ---------- Złote iskierki ---------- */
@@ -67,6 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   document.addEventListener("visibilitychange", () => { if (!document.hidden) requestAnimationFrame(loop); });
   requestAnimationFrame(loop);
+  if (fromLove) {
+    setTimeout(() => goldBurst(canvas.width / 2, canvas.height / 2, window.innerWidth < 700 ? 90 : 150), 500);
+  }
 
   /* ---------- Sztuczka: każda karta to "wymuszona" karta ---------- */
   const MAIN = '<span class="big">19:00</span><span class="emoji">✨</span><span class="label">Dziś wieczorem</span>';
