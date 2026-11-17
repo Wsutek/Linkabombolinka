@@ -6,7 +6,7 @@
   const params = new URLSearchParams(location.search);
   const testCountdown = params.has("test");
   const testNow = params.has("rocznica");
-  const offset = testCountdown ? ANNIV_DATE.getTime() - 10000 - Date.now() : 0;
+  let offset = testCountdown ? ANNIV_DATE.getTime() - 10000 - Date.now() : 0;
   const now = () => Date.now() + offset;
 
   const body = document.body;
@@ -23,6 +23,8 @@
   };
 
   let hacked = false;
+  let rebooted = false;
+  const pad = (n) => String(n).padStart(2, "0");
 
   function render(d, h, m, s) {
     nums.days.textContent = d;
@@ -32,8 +34,8 @@
   }
 
   function tick() {
-    if (hacked) return;
-    if (testNow || now() >= ANNIV_DATE.getTime()) {
+    if (hacked && !rebooted) return;
+    if (!hacked && (testNow || now() >= ANNIV_DATE.getTime())) {
       render(365, 0, 0, 0);
       startHack();
       return;
@@ -43,7 +45,8 @@
     const hours = Math.floor(diff / 3600); diff -= hours * 3600;
     const mins = Math.floor(diff / 60);
     const secs = Math.floor(diff - mins * 60);
-    render(days, hours, mins, secs);
+    if (rebooted) render(days, pad(hours), pad(mins), pad(secs));
+    else render(days, hours, mins, secs);
   }
 
   const GLYPHS = "01#$%&@!?<>/\\|=+*ERRØ█▓▒░";
@@ -118,7 +121,9 @@
 
     // Faza 3: restart z niespodzianką
     clearInterval(scramble);
-    render(365, "00", "00", "00");
+    if (testNow) offset = ANNIV_DATE.getTime() - Date.now();
+    rebooted = true;
+    tick();
     setTitle("System przejęty przez miłość 💘");
     since.textContent = "> uptime: 365 dni i liczymy dalej\u00a0❤️";
     if (testCountdown || testNow) {
